@@ -7,6 +7,33 @@
     <title>Hotels</title>
 </head>
 <body>
+<?php
+include_once  'config/database.php';
+include_once  'objects/hotels.php';
+
+$database = new Database();
+$db = $database->getConnection();
+
+$hotels = new Hotels($db);
+$stmt = $hotels->read();
+$num = $stmt->rowCount();
+
+if ($num>0) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+        extract($row);
+
+        $hotel_item=array(
+            "id" => $id,
+            "name" => $name,
+            "address" => $address,
+            "phone" => $phone,
+        );
+
+        $hotels_arr[] = $hotel_item;
+    }
+}
+?>
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
         <a class="navbar-brand" href="#">My Hotel Proj with Bootstrap</a>
@@ -36,61 +63,19 @@
     </tr>
     </thead>
     <tbody>
+    <?php foreach($hotels_arr as $hotel): ?>
     <tr>
-        <th scope="row">1</th>
-        <td>Blank hotels</td>
-        <td>Test Street 21b-g</td>
-        <td>403 549 321</td>
+        <th scope="row"><?= $hotel['id']; ?></th>
+        <td><?= $hotel['name']; ?></td>
+        <td><?= $hotel['address']; ?></td>
+        <td><?= $hotel['phone']; ?></td>
         <td>
             <button type="button" class="btn btn-info">View</button>
             <button type="button" class="btn btn-warning">Edit</button>
             <button type="button" class="btn btn-danger">Delete</button>
         </td>
     </tr>
-    <tr>
-        <th scope="row">2</th>
-        <td>Hotels Pro</td>
-        <td>Sunny Street 214</td>
-        <td>613 549 611</td>
-        <td>
-            <button type="button" class="btn btn-info">View</button>
-            <button type="button" class="btn btn-warning">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </td>
-    </tr>
-    <tr>
-        <th scope="row">3</th>
-        <td>My Test Hotel</td>
-        <td>Test Avenue</td>
-        <td>634 549 431</td>
-        <td>
-            <button type="button" class="btn btn-info">View</button>
-            <button type="button" class="btn btn-warning">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </td>
-    </tr>
-    <tr>
-        <th scope="row">4</th>
-        <td>1st Hotel</td>
-        <td>Pro Street 213-b</td>
-        <td>403 541 321</td>
-        <td>
-            <button type="button" class="btn btn-info">View</button>
-            <button type="button" class="btn btn-warning">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </td>
-    </tr>
-    <tr>
-        <th scope="row">5</th>
-        <td>2nd Hotel</td>
-        <td>Pro Avenue</td>
-        <td>403 569 321</td>
-        <td>
-            <button type="button" class="btn btn-info">View</button>
-            <button type="button" class="btn btn-warning">Edit</button>
-            <button type="button" class="btn btn-danger">Delete</button>
-        </td>
-    </tr>
+    <?php endforeach; ?>
     </tbody>
 </table>
 </body>
