@@ -5,6 +5,11 @@ class Hotels
     private $conn;
     private $table_name = "hotels";
 
+    public $id;
+    public $name;
+    public $address;
+    public $phone;
+
     public function __construct($db)
     {
         $this->conn = $db;
