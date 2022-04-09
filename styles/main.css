@@ -1,0 +1,7 @@
+form {
+    display: inline-flex;
+}
+.btn-action {
+    width: 75px;
+    margin: 5px;
+}

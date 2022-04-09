@@ -17,9 +17,18 @@
         <td><?= $hotel['address']; ?></td>
         <td><?= $hotel['phone']; ?></td>
         <td>
-            <a href="/views/view.php" class="btn btn-info">View</a>
-            <a href="/views/edit.php" class="btn btn-warning">Edit</a>
-            <a href="/views/delete.php" class="btn btn-danger">Delete</a>
+            <form action="/views/view.php" method="get">
+                <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
+                <button type="submit" class="btn btn-info btn-action">View</button>
+            </form>
+            <form action="/views/edit.php" method="get">
+                <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
+                <button type="submit" class="btn btn-warning btn-action">Edit</button>
+            </form>
+            <form action="/views/delete.php" method="get">
+                <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
+                <button type="submit" class="btn btn-danger btn-action">Delete</button>
+            </form>
         </td>
     </tr>
     <?php endforeach; ?>

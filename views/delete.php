@@ -1,2 +1,8 @@
 <?php include('../header.php'); ?>
-<?php include('../footer.php'); ?>
+<?php
+    if (isset($_GET['id'])) {
+        $_GET['DELETED'] = true;
+        header("location: /");
+        exit();
+    }
+?>
