@@ -41,9 +41,9 @@ if ($num>0) {
         <td><?= $hotel['address']; ?></td>
         <td><?= $hotel['phone']; ?></td>
         <td>
-            <form action="/views/view.php" method="GET">
+            <form action="/views/show.php" method="GET">
                 <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
-                <button type="submit" class="btn btn-info btn-action">View</button>
+                <button type="submit" class="btn btn-info btn-action">Show</button>
             </form>
             <form action="/views/edit.php" method="GET">
                 <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
