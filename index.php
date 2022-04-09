@@ -1,4 +1,28 @@
 <?php include('header.php'); ?>
+<?php
+$database = new Database();
+$db = $database->getConnection();
+
+$hotels = new Hotel($db);
+$stmt = $hotels->read();
+$num = $stmt->rowCount();
+
+if ($num>0) {
+    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+
+        extract($row);
+
+        $hotel_item=array(
+            "id" => $id,
+            "name" => $name,
+            "address" => $address,
+            "phone" => $phone,
+        );
+
+        $hotels_arr[] = $hotel_item;
+    }
+}
+?>
 <table class="table table-light table-striped">
     <thead>
     <tr>
@@ -17,15 +41,15 @@
         <td><?= $hotel['address']; ?></td>
         <td><?= $hotel['phone']; ?></td>
         <td>
-            <form action="/views/view.php" method="get">
+            <form action="/views/view.php" method="GET">
                 <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
                 <button type="submit" class="btn btn-info btn-action">View</button>
             </form>
-            <form action="/views/edit.php" method="get">
+            <form action="/views/edit.php" method="GET">
                 <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
                 <button type="submit" class="btn btn-warning btn-action">Edit</button>
             </form>
-            <form action="/views/delete.php" method="get">
+            <form action="/controllers/DeleteHotelController.php" method="POST">
                 <input type="hidden" name="id" value="<?= $hotel['id']; ?>">
                 <button type="submit" class="btn btn-danger btn-action">Delete</button>
             </form>

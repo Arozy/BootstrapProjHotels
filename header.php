@@ -10,32 +10,9 @@
 <body>
 <?php
 include_once  'config/database.php';
-include_once  'objects/hotels.php';
-
-$database = new Database();
-$db = $database->getConnection();
-
-$hotels = new Hotels($db);
-$stmt = $hotels->read();
-$num = $stmt->rowCount();
-
-if ($num>0) {
-    while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-
-        extract($row);
-
-        $hotel_item=array(
-            "id" => $id,
-            "name" => $name,
-            "address" => $address,
-            "phone" => $phone,
-        );
-
-        $hotels_arr[] = $hotel_item;
-    }
-}
+include_once 'objects/Hotel.php';
 ?>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">My Hotel Proj with Bootstrap</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
